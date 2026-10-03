@@ -8,7 +8,7 @@ hospital staff web app, Android patient client and Windows hospital client.
 - `clients/`: Android and Windows client source and build instructions.
 - The separate **Platypus-complete-submission.zip** contains the Android APK,
   Windows applications, full fictional demo database, and START-DEMO.ps1.
-  Download the complete bundle from the project submission's download link.
+  Download the complete bundle from [the submission release](https://github.com/Shiva2966/platypus-health-portal/releases/tag/hackathon-2026-10-03).
 
 ## Run from source
 Use Python 3.11 or newer. From `backend/`:
