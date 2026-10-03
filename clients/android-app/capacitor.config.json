@@ -1,0 +1,12 @@
+{
+  "appId": "com.healthportal.demo",
+  "appName": "Health Portal",
+  "webDir": "www",
+  "android": {
+    "allowMixedContent": true
+  },
+  "server": {
+    "cleartext": true,
+    "allowNavigation": ["*"]
+  }
+}

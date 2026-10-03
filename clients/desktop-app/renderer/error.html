@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'unsafe-inline'; script-src 'self' 'unsafe-inline'">
+<title>Cannot reach server</title>
+<style>
+ *{box-sizing:border-box} body{margin:0;font-family:Segoe UI,system-ui,sans-serif;background:#eef4f7;color:#12303d;padding:28px}
+ h1{font-size:1.3rem;margin:0 0 8px} .demo{background:#fff3cd;color:#664d03;border-radius:6px;padding:5px 9px;font-size:.8rem;margin-bottom:14px;display:inline-block}
+ button{font-size:.95rem;padding:9px 14px;border:0;border-radius:6px;margin:12px 8px 0 0;background:#0b7285;color:#fff;font-weight:600;cursor:pointer}
+ button.s{background:#dbe7ec;color:#12303d} small{color:#51707d} code{background:#dbe7ec;padding:1px 5px;border-radius:4px}
+</style>
+</head>
+<body>
+<h1>Cannot reach the Health Portal server</h1><div class="demo">DEMO ONLY - synthetic data</div>
+<p>Tried: <b id="server"></b><br><small id="desc"></small></p>
+<ul>
+  <li><b>The server's web address may have changed.</b> Temporary <code>https://...trycloudflare.com</code> addresses change
+      whenever the server restarts. Ask your administrator for the current address, then click
+      <b>Server settings...</b> and paste it.</li>
+  <li>Check your internet connection, then click <b>Retry</b>.</li>
+  <li>Administrators: is the server running? <code>scripts\start_public.ps1</code> prints the current address.</li>
+</ul>
+<button id="retry">Retry</button><button class="s" id="settings">Server settings...</button>
+<script>
+const q = new URLSearchParams(location.search);
+document.getElementById("server").textContent = q.get("server") || "";
+document.getElementById("desc").textContent = q.get("desc") || "";
+document.getElementById("retry").onclick = () => hp.retry();
+document.getElementById("settings").onclick = () => hp.openSettings();
+</script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+{
+    "serverUrl":  "https://method-purchase-respondent-scenic.trycloudflare.com",
+    "_comment":  "Written by health-portal\\scripts\\start_public.ps1 (quick tunnel). Used as the DEFAULT by both clients; each client can still change it in its own settings screen."
+}

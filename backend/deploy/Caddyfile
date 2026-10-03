@@ -1,0 +1,43 @@
+# Caddy reverse proxy: automatic HTTPS (Let's Encrypt) for ONE public hostname.
+# Android app, phone PWA and Windows desktop app all use https://$PUBLIC_HOSTNAME
+# NOTE: written for Caddy 2.x but not executed in the dev environment - run `caddy validate` first.
+{$PUBLIC_HOSTNAME} {
+	encode zstd gzip
+
+	# uploads are capped at 15 MB by the app; leave headroom for multipart overhead
+	request_body {
+		max_size 20MB
+	}
+
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "no-referrer"
+		-Server
+	}
+
+	# /readyz and /healthz are for the platform's health checks, not the public internet
+	@internal path /readyz
+	respond @internal 404
+
+	reverse_proxy app:8000 {
+		health_uri /healthz
+		health_interval 15s
+		header_up X-Forwarded-Proto {scheme}
+	}
+
+	# Log hygiene: no query strings (they can hold search text such as patient names), no cookies.
+	log {
+		output stdout
+		format filter {
+			wrap json
+			request>uri regexp \?.* ""
+			request>headers>Cookie delete
+			request>headers>Authorization delete
+			request>remote_ip ip_mask {
+				ipv4 24
+				ipv6 48
+			}
+		}
+	}
+}

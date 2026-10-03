@@ -1,0 +1,18 @@
+/* Patient interface polish; shared staff styles remain untouched. */
+html:not(.hc) { --bg: #f3f6fa; --line: #c7d3df; --radius: 14px; }
+#main { width: 100%; padding: 1.4rem; }
+#main > h2 { letter-spacing: -.025em; margin-bottom: 1.2rem; }
+#main .card { padding: 1.15rem; }
+html:not(.hc) #main .card { box-shadow: 0 3px 12px rgba(20, 50, 80, .045); }
+#main .med-tabs { gap: .5rem; margin-bottom: 1.25rem; }
+#main .med-tabs a { border-width: 1px; padding: .55rem .85rem; }
+#main .med-item .actions { padding-top: .6rem; }
+#main .med-dl { grid-template-columns: minmax(6rem, max-content) minmax(0, 1fr); }
+#main dd, #main code { overflow-wrap: anywhere; }
+#main .grid .card { margin-bottom: 0; }
+@media (max-width: 600px) {
+  #main { padding: 1rem; }
+  #main .card { padding: 1rem; }
+  #main .med-tabs a { font-size: .9rem; }
+  #main .row.between { gap: .8rem; }
+}

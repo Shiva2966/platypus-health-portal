@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Caregiver sign-in (Demo)</title>
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="/static/css/app.css">
+</head>
+<body>
+  <a class="skip" href="#cg-main">Skip to main content</a>
+  <div class="demo-banner" role="note">DEMO ONLY &mdash; synthetic data &mdash; not for real medical use</div>
+  <header class="top">
+    <h1>Caregiver access</h1>
+    <span id="cg-who" class="muted"></span>
+    <button id="cg-logout" class="btn small" hidden>Sign out</button>
+  </header>
+  <main id="cg-main" tabindex="-1" aria-live="polite" style="max-width:48rem;margin:0 auto;padding:1rem"></main>
+  <div class="toasts" id="toasts" role="status" aria-live="polite"></div>
+  <noscript><p class="card err">This page needs JavaScript. Please turn it on in your browser.</p></noscript>
+  <script src="/static/caregiver/caregiver.js"></script>
+</body>
+</html>

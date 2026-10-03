@@ -1,0 +1,6 @@
+# Database layer (W5). Already merged into requirements.txt; kept for reference.
+alembic>=1.13
+psycopg[binary]>=3.1
+python-dotenv>=1.0
+# dev/test only: embedded PostgreSQL 16 for running tests against Postgres without Docker
+# pgserver>=0.1.4

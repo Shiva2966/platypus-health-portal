@@ -1,0 +1,15 @@
+.git
+.venv
+.pgdata
+__pycache__
+*.pyc
+.pytest_cache
+data
+backups
+*.db
+*.db-wal
+*.db-shm
+.env
+tests
+docs
+node_modules

@@ -1,0 +1,38 @@
+/* App-style layer for phones (APK / installed PWA). Pure CSS, loaded after app.css. */
+:root { --app-grad: linear-gradient(135deg, #0b4f8a 0%, #0f7ba8 100%); --shadow: 0 2px 10px rgba(16, 24, 32, .08); }
+body { -webkit-tap-highlight-color: transparent; overscroll-behavior-y: none; }
+@keyframes hp-splash { 0%, 70% { opacity: 1; visibility: visible; } 100% { opacity: 0; visibility: hidden; } }
+body::before { content: "Health Portal"; position: fixed; inset: 0; z-index: 999; display: flex; align-items: center; justify-content: center;
+  background: var(--app-grad); color: #fff; font-size: 1.9rem; font-weight: 800; letter-spacing: .02em; pointer-events: none;
+  animation: hp-splash 1.1s ease-out forwards; }
+header.top { background: var(--app-grad); padding-top: calc(.55rem + env(safe-area-inset-top, 0px)); box-shadow: var(--shadow); }
+header.top h1 { font-size: 1.15rem; font-weight: 800; }
+header.top .btn { border-radius: 999px; border-width: 1.5px; min-height: 40px; }
+.card { border-radius: 16px; border-color: #d3dce8; box-shadow: var(--shadow); }
+.btn { border-radius: 12px; }
+.btn.primary { background: var(--app-grad); border-color: transparent; }
+dialog { border-radius: 18px; }
+input, select, textarea { border-color: #b9c6d6; border-radius: 12px; }
+.demo-banner { font-size: .7rem; padding: .15rem .4rem; }
+@media (max-width: 899px) {
+  #menu-btn, #who { display: none !important; }
+  nav.main, nav.main.open { display: block; position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; padding: .25rem .25rem calc(.25rem + env(safe-area-inset-bottom, 0px));
+    border: 0; border-top: 1px solid #d3dce8; background: var(--surface); box-shadow: 0 -2px 12px rgba(16, 24, 32, .10); }
+  nav.main ul { display: flex; gap: .15rem; overflow-x: auto; scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  nav.main ul::-webkit-scrollbar { display: none; }
+  nav.main li { flex: 0 0 auto; scroll-snap-align: start; }
+  nav.main a { flex-direction: column; justify-content: center; gap: .1rem; min-width: 5rem; min-height: 54px; padding: .3rem .5rem;
+    font-size: .72rem; line-height: 1.15; text-align: center; border-radius: 14px; position: relative; }
+  nav.main a[aria-current="page"] { background: var(--app-grad); color: #fff; }
+  nav.main .nav-badge { position: absolute; top: 2px; right: 6px; margin: 0; font-size: .65rem; min-width: 1.1rem; }
+  nav.main a > span[aria-hidden] { font-size: 1.45rem; line-height: 1; }
+  nav.main a[aria-current="page"] > span[aria-hidden] { transform: scale(1.12); }
+  main { padding: .9rem .9rem calc(6.5rem + env(safe-area-inset-bottom, 0px)); }
+  main h2 { font-size: 1.35rem; }
+  .toasts { bottom: calc(5.2rem + env(safe-area-inset-bottom, 0px)); }
+}
+
+main h2 { font-weight: 800; letter-spacing: -.01em; }
+.card h3 { font-weight: 700; }
+.badge { border-radius: 999px; }
+body { background: linear-gradient(180deg, #eaf2fa 0%, #f6f8fb 220px); background-attachment: fixed; }

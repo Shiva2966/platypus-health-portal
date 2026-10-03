@@ -1,0 +1,13 @@
+﻿fastapi>=0.110
+uvicorn[standard]>=0.29
+sqlalchemy>=2.0
+python-multipart>=0.0.9
+qrcode>=7.4
+
+alembic>=1.13
+psycopg[binary]>=3.1
+python-dotenv>=1.0
+argon2-cffi>=23.1
+Pillow>=10
+cryptography>=42
+pypdf>=4.0

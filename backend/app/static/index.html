@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Platypus (Demo)</title>
+  <meta name="theme-color" content="#0b4f8a">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/static/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="/static/icons/icon-192.png">
+  <link rel="stylesheet" href="/static/css/app.css">
+  <link rel="stylesheet" href="/static/css/auth_otp.css">
+  <link rel="stylesheet" href="/static/css/mobile.css">
+  <link rel="stylesheet" href="/static/css/polish.css">
+  <link rel="stylesheet" href="/static/css/patient_refresh.css?v=9">
+  <link rel="stylesheet" href="/static/css/calm_portal.css?v=2">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to main content</a>
+  <div class="demo-banner" role="note">DEMO ONLY &mdash; synthetic data &mdash; not for real medical use</div>
+  <div id="app-shell" hidden>
+    <header class="top">
+      <button id="menu-btn" class="btn small" aria-expanded="false" aria-controls="nav-main">Menu</button>
+      <h1 class="portal-brand"><img class="portal-logo" src="/static/icons/portal-logo.jpg?v=1" alt="Platypus logo" width="88" height="44"><span>Platypus</span></h1>
+      <span id="who" class="muted"></span>
+      <button id="logout-btn" class="btn small">Sign out</button>
+    </header>
+    <div class="layout">
+      <nav id="nav-main" class="main" aria-label="Main navigation"><ul id="nav-list"></ul></nav>
+      <main id="main" tabindex="-1" aria-live="polite"></main>
+    </div>
+  </div>
+  <div id="auth-view"></div>
+  <div class="toasts" id="toasts" role="status" aria-live="polite"></div>
+  <noscript><p class="card err">This app needs JavaScript. Please turn it on in your browser.</p></noscript>
+  <!-- Every module, in load order (shell first; *_common before its siblings). A new module needs a tag here;
+       tests/test_robust_wiring.py fails if a file in /static/js is not listed. shell.js shows an error banner
+       if any of these fails to load. -->
+  <script src="/static/js/shell.js?v=16"></script>
+  <script src="/static/js/auth_flow.js"></script>
+  <script src="/static/js/auth_patient.js?v=16"></script>
+  <script src="/static/js/docs_documents.js"></script>
+  <script src="/static/js/docs_sharing.js"></script>
+  <script src="/static/js/notif_audit.js"></script>
+  <script src="/static/js/notif_inbox.js"></script>
+  <script src="/static/js/med_common.js"></script>
+  <script src="/static/js/med_allergies.js?v=9"></script>
+  <script src="/static/js/med_careteam.js?v=9"></script>
+  <script src="/static/js/med_corrections.js?v=9"></script>
+  <script src="/static/js/med_history.js?v=10"></script>
+  <script src="/static/js/med_meds.js?v=9"></script>
+  <script src="/static/js/med_overview.js?v=9"></script>
+  <script src="/static/js/med_prescriptions.js?v=10"></script>
+  <script src="/static/js/med_results.js?v=14"></script>
+  <script src="/static/js/med_vaccines.js?v=9"></script>
+  <script src="/static/js/bill_common.js"></script>
+  <script src="/static/js/bill_bills.js"></script>
+  <script src="/static/js/bill_coverage.js"></script>
+  <script src="/static/js/bill_search.js"></script>
+  <script src="/static/js/appt_appointments.js?v=15"></script>
+  <script src="/static/js/appt_care.js?v=15"></script>
+  <script src="/static/js/appt_privacy.js"></script>
+  <script src="/static/js/core_dashboard.js?v=9"></script>
+  <script src="/static/js/core_profile.js?v=15"></script>
+</body>
+</html>

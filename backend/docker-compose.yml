@@ -1,0 +1,128 @@
+# Health Portal - ONE central server: app + PostgreSQL 16 (+ optional TLS proxy and nightly backups).
+# DEMO / SYNTHETIC DATA ONLY.
+#
+#   copy .env.example .env      (set POSTGRES_PASSWORD and the OTP/SMTP values)
+#   docker compose up -d --build                 # app on http://127.0.0.1:8000
+#   docker compose --profile tls up -d           # + Caddy: automatic HTTPS for $PUBLIC_HOSTNAME on 80/443
+#   docker compose --profile backup up -d        # + nightly pg_dump into ./backups (14 kept)
+#
+# PostgreSQL is NOT published to the host; only the app container can reach it.
+
+name: healthportal
+
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-hp}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: ${POSTGRES_DB:-healthportal}
+      POSTGRES_INITDB_ARGS: "--data-checksums --auth-host=scram-sha-256"
+    command:
+      - postgres
+      - -c
+      - password_encryption=scram-sha-256
+      - -c
+      - shared_buffers=256MB
+      - -c
+      - max_connections=100
+      - -c
+      - log_min_duration_statement=1000      # slow-query log (statement text only)
+      - -c
+      - log_parameter_max_length=0           # never write bind parameters (PHI) to logs
+      - -c
+      - log_parameter_max_length_on_error=0
+      - -c
+      - synchronous_commit=on
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+    networks: [internal]
+
+  app:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file: [.env]
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-hp}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-healthportal}
+      AUTO_MIGRATE: "1"
+      HP_SECURE_COOKIES: "1"
+      TRUST_PROXY: "1"
+    volumes:
+      - ./backups:/app/backups      # scripts/backup.py output (chown 10001 ./backups on the host)
+    ports:
+      - "127.0.0.1:8000:8000"       # local access / reverse proxy on the same host
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/readyz', timeout=4).status == 200 else 1)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 60s
+    networks: [internal, edge]
+
+  caddy:
+    profiles: [tls]
+    image: caddy:2
+    restart: unless-stopped
+    depends_on: [app]
+    environment:
+      PUBLIC_HOSTNAME: ${PUBLIC_HOSTNAME:?set PUBLIC_HOSTNAME in .env}
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks: [edge]
+
+  backup:
+    profiles: [backup]
+    image: postgres:16            # same major version as the server => compatible pg_dump
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      PGHOST: db
+      PGUSER: ${POSTGRES_USER:-hp}
+      PGPASSWORD: ${POSTGRES_PASSWORD}
+      PGDATABASE: ${POSTGRES_DB:-healthportal}
+      BACKUP_KEEP: ${BACKUP_KEEP:-14}
+    volumes:
+      - ./backups:/backups
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        while true; do
+          ts=$$(date -u +%Y%m%dT%H%M%SZ)
+          if pg_dump --format=custom --no-owner --no-privileges --file=/backups/healthportal_$$ts.pgdump.partial; then
+            mv /backups/healthportal_$$ts.pgdump.partial /backups/healthportal_$$ts.pgdump
+            pg_restore --list /backups/healthportal_$$ts.pgdump > /dev/null && echo "backup ok $$ts"
+          else
+            echo "BACKUP FAILED $$ts" >&2; rm -f /backups/healthportal_$$ts.pgdump.partial
+          fi
+          ls -1t /backups/healthportal_*.pgdump 2>/dev/null | tail -n +$$((BACKUP_KEEP + 1)) | xargs -r rm -f
+          sleep 86400
+        done
+    networks: [internal]
+
+volumes:
+  pgdata:
+  caddy_data:
+  caddy_config:
+
+networks:
+  internal:
+    internal: true        # db + backup can't reach the internet
+  edge:

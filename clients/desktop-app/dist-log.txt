@@ -1,0 +1,31 @@
+npm warn Unknown env config "devdir". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> health-portal-hospital-desktop@1.0.0 dist
+> node scripts/sync-config.js && electron-builder --win portable nsis
+
+Default server config copied: "serverUrl": "http://192.168.1.50:8000"
+  • electron-builder  version=26.15.3 os=10.0.26200
+  • loaded configuration  file=package.json ("build" field)
+  • executing @electron/rebuild  electronVersion=44.5.1 arch=x64 buildFromSource=false workspaceRoot=C:\Users\sav11\Projects\health-portal-clients\desktop-app projectDir=./ appDir=./
+  • installing native dependencies  arch=x64
+  • completed installing native dependencies
+  • packaging       platform=win32 arch=x64 electron=44.5.1 appOutDir=dist\win-unpacked
+  • downloaded      label=electron progress=100%
+  • downloaded electron zip extracted successfully  output=C:\Users\sav11\Projects\health-portal-clients\desktop-app\dist\win-unpacked
+  • searching for node modules  pm=npm searchDir=C:\Users\sav11\Projects\health-portal-clients\desktop-app
+  • searching for node modules  pm=traversal searchDir=C:\Users\sav11\Projects\health-portal-clients\desktop-app
+  • using manual traversal of node_modules to build dependency tree
+  • no node modules returned while searching directories  searchDirectories=[""]
+  • updating asar integrity executable resource  executablePath=dist\win-unpacked\Health Portal Hospital.exe
+  • downloaded      label=icons-bundle.tar.gz progress=100%
+  • signing with signtool.exe  path=dist\win-unpacked\Health Portal Hospital.exe
+  • building        target=portable file=dist\HealthPortalHospital-1.0.0-portable.exe archs=x64
+  • downloaded      label=nsis-3.0.4.1.7z progress=100%
+  • downloaded      label=7zip-win-x64.tar.gz progress=100%
+  • signing with signtool.exe  path=dist\win-unpacked\resources\elevate.exe
+  • downloaded      label=nsis-resources-3.4.1.7z progress=100%
+  • signing with signtool.exe  path=dist\HealthPortalHospital-1.0.0-portable.exe
+  • building        target=nsis file=dist\HealthPortalHospital-Setup-1.0.0.exe archs=x64 oneClick=false perMachine=false
+  • signing with signtool.exe  path=dist\HealthPortalHospital-Setup-1.0.0.__uninstaller.exe
+  • signing with signtool.exe  path=dist\HealthPortalHospital-Setup-1.0.0.exe
+  • building block map  blockMapFile=dist\HealthPortalHospital-Setup-1.0.0.exe.blockmap

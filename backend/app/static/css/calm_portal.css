@@ -1,0 +1,82 @@
+/* Calm reference-inspired visual layer. No changes to application behavior. */
+html:not(.hc) {
+  --bg: #f4f6fb; --surface: #fff; --card: #fff;
+  --text: #293750; --ink: #293750; --muted: #58677b; --line: #e0e5ee;
+  --primary: #3e5e8c; --brand: #3e5e8c; --p1: #3e5e8c; --p2: #3e5e8c;
+  --primary-text: #fff; --brand-ink: #fff; --radius: 12px;
+  --grad: #3e5e8c; --ring: 0 0 0 3px rgba(62,94,140,.18);
+}
+html:not(.hc) body { background: var(--bg); color: var(--ink); letter-spacing: 0; }
+html:not(.hc) header.top, html:not(.hc) header.topbar {
+  background: #fff !important; color: var(--ink) !important;
+  border-bottom: 1px solid var(--line); box-shadow: none;
+  backdrop-filter: none; -webkit-backdrop-filter: none; min-height: 76px;
+}
+html:not(.hc) header.top h1, html:not(.hc) header.topbar .brand,
+html:not(.hc) header.topbar .brand a {
+  background: none; -webkit-text-fill-color: var(--ink); color: var(--ink);
+}
+html:not(.hc) header.topbar .bell { color: var(--brand); }
+html:not(.hc) header.top .btn, html:not(.hc) header.topbar .btn { border-radius: 8px; }
+html:not(.hc) nav#nav, html:not(.hc) nav.main {
+  background: #fff; backdrop-filter: none; border-color: var(--line);
+}
+html:not(.hc) nav#nav a, html:not(.hc) nav.main a {
+  min-height: 48px; border-radius: 9px; color: var(--muted); padding: .7rem .9rem;
+}
+html:not(.hc) nav#nav a:hover, html:not(.hc) nav.main a:hover { background: #f0f3f9; transform: none; }
+html:not(.hc) nav#nav a[aria-current="page"], html:not(.hc) nav.main a[aria-current="page"] {
+  background: #e7edf7; color: #334f76; box-shadow: none;
+}
+html:not(.hc) #main { max-width: 1320px; width: 100%; padding: 2rem 2.4rem 3rem; }
+html:not(.hc) #main h2 { font-size: 1.9rem; font-weight: 800; letter-spacing: -.035em; margin-bottom: 1.4rem; }
+html:not(.hc) #main h3 { letter-spacing: -.02em; }
+html:not(.hc) .card, html:not(.hc) #main .card {
+  background: #fff; border: 1px solid var(--line) !important;
+  border-radius: 12px !important; box-shadow: none; padding: 1.4rem; margin-bottom: 1.25rem;
+}
+html:not(.hc) article.card:hover, html:not(.hc) section.card:hover {
+  transform: none; box-shadow: none; border-color: #d2dbe8 !important;
+}
+html:not(.hc) .card.info { background: #eef3fa; border-color: #d8e3f2 !important; }
+html:not(.hc) .card.warn { background: #fff5e5; border-color: #e8d3a8 !important; }
+html:not(.hc) .card.err { background: #fff0f0; border-color: #e6b8bc !important; }
+html:not(.hc) .card.ok { background: #edf7f0; border-color: #bedbc8 !important; }
+html:not(.hc) .btn { border-radius: 8px; border: 1px solid #dce3ed; color: #334963; background: #fff; box-shadow: none; }
+html:not(.hc) .btn:hover { background: #f0f3f9; border-color: #b6c5d9; box-shadow: none; }
+html:not(.hc) .btn.primary { background: var(--brand); color: #fff; border-color: var(--brand); box-shadow: none; }
+html:not(.hc) .btn.primary:hover { background: #344f77; filter: none; box-shadow: none; }
+html:not(.hc) .btn.danger { color: #a3202f; border-color: #e4bfc5; }
+html:not(.hc) input, html:not(.hc) select, html:not(.hc) textarea {
+  border: 1px solid #c9d3e0 !important; border-radius: 8px !important;
+}
+html:not(.hc) .gsearch input, html:not(.hc) #gs-input { border-radius: 8px !important; background: #f7f9fc !important; }
+html:not(.hc) .badge { border-radius: 6px; }
+html:not(.hc) thead th { background: #f5f7fb; color: #43536b; }
+html:not(.hc) td, html:not(.hc) th { border-color: var(--line); padding: .85rem; }
+html:not(.hc) dialog { border-radius: 14px !important; }
+html:not(.hc) #main .med-tabs a { border-radius: 8px; border-color: #dce3ed; background: #fff; color: var(--brand); }
+html:not(.hc) #main .med-tabs a[aria-current="page"] { background: var(--brand); color: #fff; border-color: var(--brand); }
+#main .row.between { gap: 1rem; }
+@media (min-width: 1000px) {
+  #app .layout { grid-template-columns: 260px minmax(0, 1fr); }
+  html:not(.hc) #nav { padding: 1.4rem .8rem; }
+}
+@media (max-width: 700px) {
+  html:not(.hc) #main { padding: 1.1rem 1rem 2rem; }
+  html:not(.hc) #main h2 { font-size: 1.55rem; }
+  html:not(.hc) .card, html:not(.hc) #main .card { padding: 1rem; }
+  html:not(.hc) header.top, html:not(.hc) header.topbar { min-height: 60px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+.portal-brand { display: flex; align-items: center; gap: .65rem; min-width: 0; }
+.portal-logo { display: block; flex: 0 0 auto; width: 88px; height: 44px; object-fit: cover; object-position: center; border-radius: 6px; }
+@media (max-width: 600px) {
+  .portal-brand { gap: .35rem; }
+  .portal-logo { width: 56px; height: 32px; }
+  header.top h1.portal-brand { font-size: .95rem; }
+}

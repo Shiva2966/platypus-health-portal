@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Platypus Hospital Staff Portal (Demo)</title>
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="/staff/staff.css">
+  <link rel="stylesheet" href="/static/css/auth_otp.css">
+  <link rel="stylesheet" href="/static/css/polish.css">
+  <link rel="stylesheet" href="/static/css/calm_portal.css?v=2">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to main content</a>
+  <div class="demo-banner" role="note">DEMO – synthetic data only. Do not enter real patient information.</div>
+  <div id="offline-banner" class="offline" role="alert" hidden><span id="offline-text">You appear to be offline. Changes can't be saved until you reconnect.</span>
+    <button id="offline-retry" class="btn" type="button">Retry</button></div>
+
+  <div id="login-view" hidden></div>
+
+  <div id="app" hidden>
+    <header class="topbar">
+      <h1 class="brand"><a class="portal-brand" href="#/dashboard"><img class="portal-logo" src="/static/icons/portal-logo.jpg?v=1" alt="Platypus logo" width="88" height="44"><span>Platypus</span></a></h1>
+      <form id="global-search" role="search" class="gsearch">
+        <label for="gs-input" class="sr">Search authorized documents by name</label>
+        <input id="gs-input" type="search" placeholder="Search shared documents by name  ( / )" autocomplete="off" maxlength="100">
+      </form>
+      <a id="bell" class="bell" href="#/notifications" aria-label="Notifications">
+        <span aria-hidden="true">&#128276;</span><span id="bell-count" class="count" hidden>0</span>
+      </a>
+      <span id="who" class="who"></span>
+      <button id="logout" class="btn">Sign out</button>
+    </header>
+    <div class="layout">
+      <nav id="nav" aria-label="Main"><ul id="nav-list"></ul></nav>
+      <main id="main" tabindex="-1"></main>
+    </div>
+  </div>
+
+  <div id="toasts" class="toasts" aria-live="polite" aria-atomic="false"></div>
+  <div id="sr-live" class="sr" aria-live="polite"></div>
+
+  <!-- Every script, in load order. staff_core.js shows an error banner if any of them fails to load. -->
+  <script src="/staff/staff_core.js?v=13"></script>
+  <script src="/static/js/auth_flow.js"></script>
+  <script src="/staff/auth_staff.js?v=16"></script>
+  <script src="/staff/staff_login.js"></script>
+  <script src="/staff/staff_pages.js?v=13"></script>
+  <script src="/staff/staff_pages2.js?v=17"></script>
+  <script src="/staff/staff_records.js"></script>
+  <script src="/staff/staff_app.js?v=16"></script>
+</body>
+</html>
+

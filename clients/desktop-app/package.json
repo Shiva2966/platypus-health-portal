@@ -1,0 +1,33 @@
+{
+  "name": "health-portal-hospital-desktop",
+  "productName": "Health Portal Hospital",
+  "version": "1.0.0",
+  "description": "Windows desktop shell for the Health Portal hospital/staff side (demo only)",
+  "main": "main.js",
+  "author": "Health Portal Demo",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "sync-config": "node scripts/sync-config.js",
+    "start": "node scripts/sync-config.js && electron .",
+    "pack": "node scripts/sync-config.js && electron-builder --dir",
+    "dist": "node scripts/sync-config.js && electron-builder --win portable nsis"
+  },
+  "build": {
+    "appId": "com.healthportal.hospital",
+    "productName": "Health Portal Hospital",
+    "directories": { "output": "dist", "buildResources": "build" },
+    "files": ["main.js", "preload-*.js", "renderer/**", "server-default.json", "package.json"],
+    "win": {
+      "target": ["portable", "nsis"],
+      "icon": "build/icon.png",
+      "signAndEditExecutable": true
+    },
+    "portable": { "artifactName": "HealthPortalHospital-${version}-portable.exe" },
+    "nsis": { "oneClick": false, "allowToChangeInstallationDirectory": true, "artifactName": "HealthPortalHospital-Setup-${version}.exe" }
+  },
+  "devDependencies": {
+    "electron": "^44.5.1",
+    "electron-builder": "^26.15.3"
+  }
+}
