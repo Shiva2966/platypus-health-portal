@@ -12,6 +12,13 @@ Fresh-seed patient: jordan.ellis@example.test / Demo-Patient-2026!
 Fresh-seed nurse: nurse@riverside.demo / Staff-Demo-2026!
 These credentials belong to the freshly seeded dataset; existing presentation account passwords are preserved in the bundled database. Local development skips login OTP.
 
+## Hackathon hosting note
+This prototype currently runs on a team laptop through a temporary HTTPS tunnel because dedicated always-on hosting resources are not yet available. The live demo therefore depends on laptop power, internet connectivity, and the tunnel service; interruptions or a changed demo address are possible.
+
+For the live presentation, we will keep the laptop plugged in and online, prevent sleep, keep automatic server recovery running, and check the public connection before demonstrating. These precautions reduce interruptions but cannot guarantee uninterrupted access. The public GitHub repository and downloadable source, apps, database, and setup instructions remain available if the live demo is interrupted.
+
+The permanent solution is to deploy the backend and persistent database to an always-on cloud host with a fixed HTTPS address. We have identified this solution; that deployment is not yet complete.
+
 ## Demo availability
 The downloadable package runs independently of the original laptop. Native apps require a running backend and its address in their Server Settings. No temporary tunnel address is promised as permanent.
 For always-on public access, deploy the backend and persistent database to an always-on host with a fixed HTTPS address; see backend/DEPLOY.md. A laptop tunnel stops serving during sleep, power loss or internet loss. Its watchdog can restart failed processes, but a restarted quick tunnel may receive a new address.
